@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Product;
 use App\Product\Services\ProductService;
 use Illuminate\Http\Request;
 
@@ -16,7 +16,8 @@ class ProductController extends Controller
 
     public function index()
     {
-        return response()->json($this->service->getAllProducts());
+        $products = Product::paginate(9); // Pagina los resultados y muestra 9 elementos por página.
+        return view('products.index', compact('products'));
     }
 
     public function store(Request $request)
